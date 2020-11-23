@@ -1,0 +1,88 @@
+name: the_glem_factory
+description: A new Flutter application.
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  cupertino_icons: ^1.0.0
+  font_awesome_flutter: ^8.8.1
+  date_picker_timeline: ^1.2.1
+  intl: ^0.16.1
+  firebase_core: ^0.5.1
+  firebase_auth: ^0.18.1+2
+  cloud_firestore: ^0.14.2
+  provider: ^4.3.2+2
+  flutter_time_picker_spinner: ^1.0.6+1
+  table_calendar: ^2.2.3
+  firebase_helpers: ^0.2.1
+  calendar_strip: ^1.0.6
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/derohimat/flutter_datetime_picker.git
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+
+  uses-material-design: true
+
+
+  assets:
+    - asset/images/icons/NavigationBar/Fill/.
+    - asset/images/icons/NavigationBar/Outline/.
+    - asset/images/icons/OpeningSlides/.
+    - asset/images/icons/Services/.
+    - asset/images/icons/SaftyMeasures/.
+    - asset/images/Images/AboutUs/.
+    - asset/images/Images/OffersforYou/.
+    - asset/images/Images/Services/.
+    - asset/images/Images/Sliders/.
+    - asset/images/Images/.
+    - asset/images/Logo/LogoAndMonolog/.
+    - asset/images/Logo/SVG/.
+    - asset/images/Logo/.
+    - asset/images/slider/.
+    - asset/images/Wallpapers/.
+    - asset/images/.
+    - asset/images/icons/LowerGuideline/.
+    - asset/images/icons/.
+
+
+
+
+  fonts:
+    - family: robo
+      fonts:
+        - asset: asset/font/RobotoSlab-Regular.ttf
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
+    - family: sfpro
+      fonts:
+        - asset: asset/font/FontsFree-Net-SFProText-Regular.ttf
+    #       - asset: fonts/TrajanPro_Bold.ttf
+    #         weight: 700
+    - family: inter
+      fonts:
+        - asset: asset/font/Inter-Regular.ttf
+
+    - family: autobio
+      fonts:
+        - asset: asset/font/autobio.otf
+
