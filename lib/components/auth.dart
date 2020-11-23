@@ -26,6 +26,16 @@ class Auth {
     return user.uid;
   }
 
+  String currentUserPhoneNo() {
+    User user = FirebaseAuth.instance.currentUser;
+    return user.phoneNumber;
+  }
+
+  String currentUserEmail() {
+    User user = FirebaseAuth.instance.currentUser;
+    return user.email;
+  }
+
   Future<String> signInAnonymously() async {
     UserCredential userCredential =
         await FirebaseAuth.instance.signInAnonymously();

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:the_glem_factory/components/auth.dart';
+import 'package:the_glem_factory/model/cart_model.dart';
 
 import '../constant.dart';
 import 'DateTimeQueryPage.dart';
@@ -25,10 +28,62 @@ class _DateAndTimeState extends State<DateAndTime> {
   String _time;
   DateTime _selectedValue = DateTime.now();
   String selectedTime;
+  Razorpay _razorpay;
 
   @override
   void initState() {
     super.initState();
+
+    _razorpay = new Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    Fluttertoast.showToast(
+        msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message,
+        timeInSecForIosWeb: 4);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
+  }
+
+  void openCheckout() async {
+    var options = {
+      'key': 'rzp_test_1Znk3O5FLdTBzu',
+      'amount':
+          Provider.of<CartItem>(context, listen: false).totalAmount() * 100,
+      'name': 'The Glem Factory',
+      'description': 'Bring the home salon',
+      'prefill': {
+        'contact':
+            Provider.of<Auth>(context, listen: false).currentUserPhoneNo(),
+        'email': Provider.of<Auth>(context, listen: false).currentUserEmail()
+      },
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint(e);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
   }
 
   @override
@@ -217,6 +272,7 @@ class _DateAndTimeState extends State<DateAndTime> {
             } else {
               await eventDBS.create(data);
             }
+            openCheckout();
           },
           label: Text('PAYMENT'),
           icon: Icon(FontAwesomeIcons.arrowCircleRight),

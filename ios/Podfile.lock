@@ -326,6 +326,10 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - PromisesObjC (1.2.11)
+  - razorpay-pod (1.1.7)
+  - razorpay_flutter (1.1.5):
+    - Flutter
+    - razorpay-pod
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
@@ -333,6 +337,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
+  - razorpay_flutter (from `.symlinks/plugins/razorpay_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -352,6 +357,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - razorpay-pod
 
 EXTERNAL SOURCES:
   cloud_firestore:
@@ -364,6 +370,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
+  razorpay_flutter:
+    :path: ".symlinks/plugins/razorpay_flutter/ios"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -387,6 +395,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  razorpay-pod: 6ee0c8c7afad8eead9524d5eb516bc35ac1604ef
+  razorpay_flutter: bf22a7c0e12d9f906b6a493f546ee9afe7f8b508
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
