@@ -21,26 +21,26 @@ class HomePage extends StatelessWidget {
         primaryColor: Color(0xffFFFAFA),
         scaffoldBackgroundColor: Color(0xffFFFAFA),
       ),
-      home: homePage(),
+      home: MainHomePage(),
     );
   }
 }
 
-class homePage extends StatefulWidget {
+class MainHomePage extends StatefulWidget {
   @override
-  _homePageState createState() => _homePageState();
+  _MainHomePageState createState() => _MainHomePageState();
 }
 
-class _homePageState extends State<homePage> {
+class _MainHomePageState extends State<MainHomePage> {
   int currentPage = 0;
   PageController _pageController = PageController(
     initialPage: 0,
   );
   ServiceProvider serviceData;
+
   @override
   Widget build(BuildContext context) {
     serviceData = Provider.of<ServiceProvider>(context, listen: false);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [

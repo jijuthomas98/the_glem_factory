@@ -9,17 +9,17 @@ class Onboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: onboarding(),
+      home: OnboardingScreen(),
     );
   }
 }
 
-class onboarding extends StatefulWidget {
+class OnboardingScreen extends StatefulWidget {
   @override
-  _onboardingState createState() => _onboardingState();
+  _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _onboardingState extends State<onboarding> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentPage = 0;
   PageController _pageController = PageController(
     initialPage: 0,

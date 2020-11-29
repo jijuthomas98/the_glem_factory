@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CartModel {
-  String title, id;
+  String title;
   int currentPrice, previousPrice, total, quantity;
 
   CartModel({
-    this.id,
     this.title,
     this.previousPrice,
     this.total,
@@ -13,15 +12,6 @@ class CartModel {
     this.quantity,
   });
 }
-
-// List<CartModel> cart = [
-//   CartModel(
-//     title: 'Wax Delight',
-//     previousPrice: 899,
-//     time: 60,
-//     currentPrice: 400,
-//   ),
-// ];
 
 class CartItem with ChangeNotifier {
   Map<String, CartModel> _items = {};
@@ -44,7 +34,6 @@ class CartItem with ChangeNotifier {
       _items.update(
           (title),
           (existingItem) => CartModel(
-                id: DateTime.now().toString(),
                 title: existingItem.title,
                 currentPrice: existingItem.currentPrice,
                 previousPrice: existingItem.previousPrice,
@@ -56,7 +45,6 @@ class CartItem with ChangeNotifier {
         title,
         () => CartModel(
           title: title,
-          id: DateTime.now().toString(),
           quantity: 1,
           previousPrice: previousPrice,
           currentPrice: currentPrice,
@@ -78,7 +66,6 @@ class CartItem with ChangeNotifier {
       _items.update(
           title,
           (existingItem) => CartModel(
-                id: DateTime.now().toString(),
                 title: existingItem.title,
                 currentPrice: existingItem.currentPrice,
                 previousPrice: existingItem.previousPrice,
@@ -95,7 +82,6 @@ class CartItem with ChangeNotifier {
       _items.update(
           title,
           (existingItem) => CartModel(
-                id: DateTime.now().toString(),
                 title: existingItem.title,
                 currentPrice: existingItem.currentPrice,
                 previousPrice: existingItem.previousPrice,
@@ -133,5 +119,15 @@ class CartItem with ChangeNotifier {
       discount = totalOrder() - totalAmount();
     });
     return discount;
+  }
+
+  String bundleItemsTitle() {
+    String title = '';
+    String finalString = '';
+    _items.forEach((key, value) {
+      title = '${value.title} X ${value.quantity} /';
+      finalString = '$title$finalString';
+    });
+    return finalString;
   }
 }

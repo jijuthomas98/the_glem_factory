@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:the_glem_factory/components/EventsOnOrder.dart';
 import 'package:the_glem_factory/components/auth.dart';
+import 'package:the_glem_factory/components/calendarHelper.dart';
 import 'package:the_glem_factory/model/cart_model.dart';
 import 'package:the_glem_factory/screens/confirmPage.dart';
 
 class Payment extends StatefulWidget {
+  final EventModel note;
+  final String time;
+  final String date;
+  final DateTime eventDateUnformatted;
+  Payment({this.time, this.date, this.note, this.eventDateUnformatted});
   @override
   _PaymentState createState() => _PaymentState();
 }
 
 class _PaymentState extends State<Payment> {
   Razorpay _razorpay;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -24,11 +30,29 @@ class _PaymentState extends State<Payment> {
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
+
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ConfirmPage()));
+
+    final data = {
+      'current_userID': Provider.of<Auth>(context, listen: false).currentUser(),
+      'selected_time': widget.time,
+      "event_date": widget.date,
+      'event_date_unformatted': widget.eventDateUnformatted,
+      'title': cartData.bundleItemsTitle(),
+      'totalAmount': cartData.totalAmount(),
+      'bundleID': DateTime.now(),
+      'PaymentStatus': 'PAID',
+      'TransactionID': response.paymentId,
+    };
+    if (widget.note != null) {
+      await eventDBS.updateData(widget.note.id, data);
+    } else {
+      await eventDBS.create(data);
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -72,8 +96,10 @@ class _PaymentState extends State<Payment> {
     _razorpay.clear();
   }
 
+  CartItem cartData;
   @override
   Widget build(BuildContext context) {
+    cartData = Provider.of<CartItem>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -98,7 +124,7 @@ class _PaymentState extends State<Payment> {
             Container(
               margin: EdgeInsets.symmetric(vertical: 40),
               child: Text(
-                'Select your Payment type',
+                'Select your Payment method',
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
               ),
             ),
@@ -130,6 +156,32 @@ class _PaymentState extends State<Payment> {
                   ),
                 ),
                 InkWell(
+                  onTap: () async {
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => ConfirmPage()));
+                    final data = {
+                      'current_userID':
+                          Provider.of<Auth>(context, listen: false)
+                              .currentUser(),
+                      'selected_time': widget.time,
+                      "event_date": widget.date,
+                      'title': cartData.bundleItemsTitle(),
+                      'totalAmount': cartData.totalAmount(),
+                      'event_date_unformatted': widget.eventDateUnformatted,
+                      'bundleID': DateTime.now(),
+                      'PaymentStatus': 'DUE',
+                    };
+                    if (widget.note != null) {
+                      await eventDBS.updateData(widget.note.id, data);
+                    } else {
+                      await eventDBS.create(data);
+                    }
+                    print(cartData.bundleItemsTitle());
+                    print(cartData.totalAmount());
+                    print(widget.time);
+                    print(widget.date);
+                    print('bundle ID ${DateTime.now()}');
+                  },
                   child: Center(
                     child: Container(
                       height: MediaQuery.of(context).size.height / 4,

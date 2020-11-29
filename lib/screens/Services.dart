@@ -57,6 +57,7 @@ class _ServicesState extends State<Services> {
             builder: (context, snapshot) {
               if (snapshot.data == null) return CircularProgressIndicator();
               return ListView.builder(
+                cacheExtent: 800,
                 itemCount: snapshot.data.documents.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,

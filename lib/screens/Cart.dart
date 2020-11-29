@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/model/cart_model.dart';
-import 'package:the_glem_factory/timeScheduling/DateAndTime.dart';
+import 'package:the_glem_factory/screens/DateAndTime.dart';
 
 class Cart extends StatefulWidget {
   @override

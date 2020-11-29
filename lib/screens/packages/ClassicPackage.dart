@@ -29,6 +29,7 @@ class _ClassicPackageState extends State<ClassicPackage> {
   @override
   Widget build(BuildContext context) {
     packageData = Provider.of<ServiceProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -64,7 +65,9 @@ class _ClassicPackageState extends State<ClassicPackage> {
         stream: packageData.getStreamPackage('classic'),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
           }
           return Column(
             children: [
@@ -75,6 +78,7 @@ class _ClassicPackageState extends State<ClassicPackage> {
                   child: Container(
                     height: 25,
                     child: ListView.builder(
+                      cacheExtent: 800,
                       itemCount: subPackage.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
@@ -147,7 +151,6 @@ class _ClassicPackageState extends State<ClassicPackage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                      flex: 1,
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width,
@@ -241,7 +244,6 @@ class _ClassicPackageState extends State<ClassicPackage> {
                                     ),
                                     // second half of card
                                     Expanded(
-                                      flex: 1,
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width,
@@ -354,5 +356,11 @@ class _ClassicPackageState extends State<ClassicPackage> {
         packageData.subPackage = 'FacialWaxingCombo';
         break;
     }
+  }
+
+  @override
+  void dispose() {
+    packageData.dispose();
+    super.dispose();
   }
 }

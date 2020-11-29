@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:the_glem_factory/components/DateTimeQueryPage.dart';
 
 import 'components/auth.dart';
 import 'components/service_provider.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<Auth>(
           create: (context) => Auth(),
+        ),
+        Provider<QueryFirebaseMethod>(
+          create: (context) => QueryFirebaseMethod(),
         ),
         ChangeNotifierProvider<ServiceProvider>(
           create: (context) => ServiceProvider(),
@@ -54,7 +58,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 3), openOnBoard);
   }

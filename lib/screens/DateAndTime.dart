@@ -5,9 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:the_glem_factory/screens/Payment.dart';
 
+import '../components/DateTimeQueryPage.dart';
+import '../components/EventsOnOrder.dart';
 import '../constant.dart';
-import 'DateTimeQueryPage.dart';
-import 'EventsOnOrder.dart';
 
 class DateAndTime extends StatefulWidget {
   final EventModel note;
@@ -20,8 +20,9 @@ class DateAndTime extends StatefulWidget {
 class _DateAndTimeState extends State<DateAndTime> {
   DatePickerController _controller = DatePickerController();
   String _eventDate;
+  DateTime _eventDateUnformatted;
   String _time;
-  DateTime _selectedValue = DateTime.now();
+  // DateTime _selectedValue = DateTime.now();
   String selectedTime;
 
   @override
@@ -52,10 +53,9 @@ class _DateAndTimeState extends State<DateAndTime> {
         body: ListView(
           children: [
             Container(
+              height: MediaQuery.of(context).size.height / 10,
               child: DatePicker(
                 DateTime.now(),
-                width: 60,
-                height: 80,
                 controller: _controller,
                 initialSelectedDate: DateTime.now(),
                 selectionColor: Colors.black,
@@ -63,8 +63,9 @@ class _DateAndTimeState extends State<DateAndTime> {
                 onDateChange: (date) {
                   // New date selected
                   setState(() {
-                    _selectedValue = date;
+                    // _selectedValue = date;
                     _eventDate = DateFormat('dd/MM/yyyy').format(date);
+                    _eventDateUnformatted = date;
                   });
                 },
               ),
@@ -100,13 +101,13 @@ class _DateAndTimeState extends State<DateAndTime> {
                           print('inside a 10-11 box');
                           validateDateTime(time: '10');
                         },
-                        child: timeWidget(time: '10 - 11 AM'),
+                        child: timeWidget(time: '10 - 11 PM'),
                       ),
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '11');
                         },
-                        child: timeWidget(time: '11 - 12 PM'),
+                        child: timeWidget(time: '10 - 11 PM'),
                       ),
                     ],
                   ),
@@ -216,8 +217,30 @@ class _DateAndTimeState extends State<DateAndTime> {
             //   await eventDBS.create(data);
             // }
 
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Payment()));
+            if (_time != null && _eventDate != null) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Payment(
+                            time: _time,
+                            date: _eventDate,
+                            eventDateUnformatted: _eventDateUnformatted,
+                          )));
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Warning'),
+                      content: Text('Please Select date and time'),
+                      actions: [
+                        FlatButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text('OK'))
+                      ],
+                    );
+                  });
+            }
           },
           label: Text('PAYMENT'),
           icon: Icon(FontAwesomeIcons.arrowCircleRight),
@@ -230,6 +253,7 @@ class _DateAndTimeState extends State<DateAndTime> {
   void validateDateTime({String time}) {
     print(time);
     print(_eventDate);
+    _time = time;
     if (_eventDate != null) {
       QueryFirebaseMethod()
           .getAvailableSlots(_eventDate, time)
