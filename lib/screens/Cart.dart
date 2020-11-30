@@ -312,10 +312,29 @@ class _CartState extends State<Cart> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DateAndTime()));
+                        if (cartData.totalAmount() != 0) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DateAndTime()));
+                        } else {
+                          return showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Warning"),
+                                  content: const Text(
+                                      "Cant proceed, cart is empty!"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
                       },
                       child: Container(
                           height: 60,

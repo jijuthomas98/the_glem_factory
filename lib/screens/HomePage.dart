@@ -6,22 +6,27 @@ import 'package:the_glem_factory/components/appWidgets/getIndicator.dart';
 import 'package:the_glem_factory/components/appWidgets/guideLinesBar.dart';
 import 'package:the_glem_factory/components/appWidgets/homeImageCarousel.dart';
 import 'package:the_glem_factory/components/appWidgets/offersCarousel.dart';
+import 'package:the_glem_factory/components/appWidgets/videoPlayer.dart';
 import 'package:the_glem_factory/components/service_provider.dart';
 import 'package:the_glem_factory/model/home_service_model.dart';
 import 'package:the_glem_factory/screens/Cart.dart';
+import 'package:video_player/video_player.dart';
 
 import '../constant.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Color(0xffFFFAFA),
-        scaffoldBackgroundColor: Color(0xffFFFAFA),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: Color(0xffFFFAFA),
+          scaffoldBackgroundColor: Color(0xffFFFAFA),
+        ),
+        home: MainHomePage(),
       ),
-      home: MainHomePage(),
     );
   }
 }
@@ -37,15 +42,16 @@ class _MainHomePageState extends State<MainHomePage> {
     initialPage: 0,
   );
   ServiceProvider serviceData;
-
   @override
   Widget build(BuildContext context) {
     serviceData = Provider.of<ServiceProvider>(context, listen: false);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             floating: true,
+            pinned: true,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -75,20 +81,22 @@ class _MainHomePageState extends State<MainHomePage> {
                   child: PageView(
                     controller: _pageController,
                     children: [
-                      HomeImageCarousel(
-                        img: 'scroll5',
+                      VideoPlayerScroll(
+                        videoPlayerController: VideoPlayerController.asset(
+                            'asset/images/slider/scroll1.mp4'),
+                        looping: true,
                       ),
                       HomeImageCarousel(
-                        img: 'scroll1',
-                      ),
-                      HomeImageCarousel(
-                        img: 'scroll4',
+                        img: 'scroll2',
                       ),
                       HomeImageCarousel(
                         img: 'scroll3',
                       ),
                       HomeImageCarousel(
-                        img: 'scroll2',
+                        img: 'scroll4',
+                      ),
+                      HomeImageCarousel(
+                        img: 'scroll5',
                       ),
                     ],
                     onPageChanged: (value) => {setCurrentPage(value)},

@@ -18,6 +18,8 @@ String _name, _address;
 String _phoneNo;
 FormType _formType = FormType.login;
 Image bgImage;
+String errorMessage;
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -65,6 +67,47 @@ class _LoginPageState extends State<LoginPage> {
         }
       } catch (e) {
         print(e);
+        switch (e.code) {
+          case "ERROR_EMAIL_ALREADY_IN_USE":
+          case "account-exists-with-different-credential":
+          case "email-already-in-use":
+            errorMessage = "Email already used. Go to login page.";
+            break;
+          case "ERROR_WRONG_PASSWORD":
+          case "wrong-password":
+            errorMessage = "Wrong email/password combination.";
+            break;
+          case "ERROR_USER_NOT_FOUND":
+          case "user-not-found":
+            errorMessage = "No user found with this email.";
+            break;
+          case "ERROR_USER_DISABLED":
+          case "user-disabled":
+            errorMessage = "User disabled.";
+            break;
+          case "ERROR_TOO_MANY_REQUESTS":
+          case "operation-not-allowed":
+            errorMessage = "Too many requests to log into this account.";
+            break;
+          case "ERROR_OPERATION_NOT_ALLOWED":
+          case "operation-not-allowed":
+            errorMessage = "Server error, please try again later.";
+            break;
+          case "ERROR_INVALID_EMAIL":
+          case "invalid-email":
+            errorMessage = "Email address is invalid.";
+            break;
+          case "ERROR_USER_NOT_FOUND":
+          case "user-not-found":
+            errorMessage = "No account found with this email";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+      }
+      if (errorMessage != null) {
+        _scaffoldKey.currentState
+            .showSnackBar(new SnackBar(content: new Text(errorMessage)));
       }
     }
   }
@@ -88,6 +131,7 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        key: _scaffoldKey,
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -244,6 +288,13 @@ class _LoginPageState extends State<LoginPage> {
               value.isEmpty ? 'Address No cant be empty' : null,
           onSaved: (value) => _address = value,
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Note: We currently serve only in Jabalpur',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+        )
       ];
     }
   }

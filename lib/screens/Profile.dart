@@ -11,6 +11,10 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+TextEditingController nameController = TextEditingController();
+TextEditingController addressController = TextEditingController();
+TextEditingController phoneController = TextEditingController();
+
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
@@ -50,120 +54,169 @@ class _ProfileState extends State<Profile> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                //height: MediaQuery.of(context).size.height / 4,
-                width: MediaQuery.of(context).size.width,
-                //color: Colors.blue,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage:
-                          AssetImage('asset/images/icons/girl.png'),
-                      radius: MediaQuery.of(context).size.height / 12,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('asset/images/icons/girl.png'),
+                    radius: MediaQuery.of(context).size.height / 12,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text(
+                          auth.userName,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Text(
-                            auth.userName,
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Name',
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 3 / 4,
+                          child: TextFormField(
+                            controller: nameController,
+                            decoration: InputDecoration(
+                              labelText: auth.userName,
+                              border: OutlineInputBorder(),
                             ),
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                margin: EdgeInsets.symmetric(vertical: 10),
-                //color: Colors.teal,
-                height: MediaQuery.of(context).size.height / 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: auth.userName,
-                        border: OutlineInputBorder(),
-                      ),
+                        ),
+                      ],
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: auth.phoneNo,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: auth.address,
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 11,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 15,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.blueAccent,
-                      child: Center(
-                        child: Text(
-                          'EDIT',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Phone No',
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 3 / 4,
+                          child: TextFormField(
+                            controller: phoneController,
+                            decoration: InputDecoration(
+                              labelText: auth.phoneNo,
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Address',
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 3 / 4,
+                          child: TextFormField(
+                            controller: addressController,
+                            decoration: InputDecoration(
+                              labelText: auth.address,
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: InkWell(
+                        onTap: () {
+                          auth.updateUserDate(
+                            name: nameController.text,
+                            address: addressController.text,
+                            phoneNo: phoneController.text,
+                          );
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height / 15,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.blueAccent,
+                          child: Center(
+                            child: Text(
+                              'EDIT',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: InkWell(
-                    onTap: () {
-                      auth.signOut();
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 15,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.red,
-                      child: Center(
-                        child: Text(
-                          'LOGOUT',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: InkWell(
+                        onTap: () {
+                          auth.signOut();
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height / 15,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.red,
+                          child: Center(
+                            child: Text(
+                              'LOGOUT',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

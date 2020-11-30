@@ -60,6 +60,17 @@ class Auth {
     });
   }
 
+  void updateUserDate({String name, phoneNo, address}) {
+    FirebaseFirestore.instance
+        .collection('userData')
+        .doc(currentUser())
+        .update({
+      'address': address,
+      'fullName': name,
+      'phoneNo': phoneNo,
+    });
+  }
+
   Future<String> getUserData() async {
     DocumentSnapshot users = await FirebaseFirestore.instance
         .collection('userData')

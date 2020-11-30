@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +54,7 @@ class _PaymentState extends State<Payment> {
     } else {
       await eventDBS.create(data);
     }
+    cartData.clear();
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -157,8 +159,9 @@ class _PaymentState extends State<Payment> {
                 ),
                 InkWell(
                   onTap: () async {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => ConfirmPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ConfirmPage()));
+                    cartData.clear();
                     final data = {
                       'current_userID':
                           Provider.of<Auth>(context, listen: false)

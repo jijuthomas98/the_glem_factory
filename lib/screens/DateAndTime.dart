@@ -19,9 +19,10 @@ class DateAndTime extends StatefulWidget {
 
 class _DateAndTimeState extends State<DateAndTime> {
   DatePickerController _controller = DatePickerController();
-  String _eventDate;
+  String _eventDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime _eventDateUnformatted;
   String _time;
+  String selectedTimeButton = '';
   // DateTime _selectedValue = DateTime.now();
   String selectedTime;
 
@@ -98,16 +99,21 @@ class _DateAndTimeState extends State<DateAndTime> {
                     children: [
                       InkWell(
                         onTap: () {
-                          print('inside a 10-11 box');
                           validateDateTime(time: '10');
+                          setState(() {
+                            selectedTimeButton = '10 - 11 AM';
+                          });
                         },
-                        child: timeWidget(time: '10 - 11 PM'),
+                        child: timeWidget(time: '10 - 11 AM'),
                       ),
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '11');
+                          setState(() {
+                            selectedTimeButton = '11 - 12 PM';
+                          });
                         },
-                        child: timeWidget(time: '10 - 11 PM'),
+                        child: timeWidget(time: '11 - 12 PM'),
                       ),
                     ],
                   ),
@@ -124,12 +130,18 @@ class _DateAndTimeState extends State<DateAndTime> {
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '12');
+                          setState(() {
+                            selectedTimeButton = '12 - 1 PM';
+                          });
                         },
                         child: timeWidget(time: '12 - 1 PM'),
                       ),
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '13');
+                          setState(() {
+                            selectedTimeButton = '1 - 2 PM';
+                          });
                         },
                         child: timeWidget(time: '1 - 2 PM'),
                       ),
@@ -144,12 +156,18 @@ class _DateAndTimeState extends State<DateAndTime> {
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '15');
+                          setState(() {
+                            selectedTimeButton = '3 - 4 PM';
+                          });
                         },
                         child: timeWidget(time: '3 - 4 PM'),
                       ),
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '16');
+                          setState(() {
+                            selectedTimeButton = '4 - 5 PM';
+                          });
                         },
                         child: timeWidget(time: '4 - 5 PM'),
                       ),
@@ -168,17 +186,64 @@ class _DateAndTimeState extends State<DateAndTime> {
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '17');
+                          setState(() {
+                            selectedTimeButton = '5 - 6 PM';
+                          });
                         },
                         child: timeWidget(time: '5 - 6 PM'),
                       ),
                       InkWell(
                         onTap: () {
                           validateDateTime(time: '18');
+                          setState(() {
+                            selectedTimeButton = '6 - 7 PM';
+                          });
                         },
                         child: timeWidget(time: '6 - 7 PM'),
                       ),
                     ],
                   )
+                ],
+              ),
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'SELECTED DATE',
+                        style: TextStyle(
+                            fontSize: 19, fontWeight: FontWeight.w500),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          _eventDate,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'SELECTED TIME',
+                        style: TextStyle(
+                            fontSize: 19, fontWeight: FontWeight.w500),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          selectedTimeButton,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -222,7 +287,7 @@ class _DateAndTimeState extends State<DateAndTime> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => Payment(
-                            time: _time,
+                            time: selectedTime,
                             date: _eventDate,
                             eventDateUnformatted: _eventDateUnformatted,
                           )));

@@ -7,12 +7,7 @@ import 'package:the_glem_factory/model/cart_model.dart';
 
 import '../Cart.dart';
 
-List<String> subPackage = [
-  'Best Deal',
-  'Pre Bridal Package',
-  'Premium Package',
-  'Facial+Wax Combo'
-];
+List<String> subPackage = ['Body Massage', 'Body Spa'];
 ServiceProvider packageData;
 double currentPageValue = 0;
 int selectedIndex = 0;
@@ -28,6 +23,7 @@ class BodyMassage extends StatefulWidget {
 class _BodyMassageState extends State<BodyMassage> {
   @override
   Widget build(BuildContext context) {
+    packageData = Provider.of<ServiceProvider>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -53,7 +49,7 @@ class _BodyMassageState extends State<BodyMassage> {
         ],
       ),
       body: StreamBuilder(
-        stream: packageData.getStreamPackage('classic'),
+        stream: packageData.getStreamPackage('massage'),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Scaffold(
@@ -69,7 +65,6 @@ class _BodyMassageState extends State<BodyMassage> {
                   child: Container(
                     height: 25,
                     child: ListView.builder(
-                      cacheExtent: 800,
                       itemCount: subPackage.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
@@ -128,7 +123,7 @@ class _BodyMassageState extends State<BodyMassage> {
                           DocumentSnapshot package =
                               snapshot.data.documents[index];
                           return Container(
-                            height: MediaQuery.of(context).size.height / 3,
+                            height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.all(8),
                             child: Card(
@@ -142,6 +137,7 @@ class _BodyMassageState extends State<BodyMassage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
+                                      flex: 1,
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width,
@@ -234,38 +230,6 @@ class _BodyMassageState extends State<BodyMassage> {
                                       ),
                                     ),
                                     // second half of card
-                                    Expanded(
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        padding: EdgeInsets.all(8),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Package Details',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            // SizedBox(
-                                            //   height: 10,
-                                            // ),
-                                            Text(
-                                              package['details'],
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'inter',
-                                                height: 1.3,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -295,56 +259,51 @@ class _BodyMassageState extends State<BodyMassage> {
 
   void productSelected({String title, int currentPrice, previousPrice, time}) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Confirm"),
-            content: const Text("Do you want to add this item in cart?"),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                    print(title);
-                    Provider.of<CartItem>(context, listen: false)
-                        .addItem(title, currentPrice, previousPrice, time);
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Thank you'),
-                            content: Text('$title added to cart'),
-                            actions: [
-                              FlatButton(
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(false),
-                                  child: Text('OK'))
-                            ],
-                          );
-                        });
-                  },
-                  child: const Text("ADD")),
-              FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text("CANCEL"),
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm"),
+          content: const Text("Do you want to add this item in cart?"),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  print(title);
+                  Provider.of<CartItem>(context, listen: false)
+                      .addItem(title, currentPrice, previousPrice, time);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Thank you'),
+                          content: Text('$title added to cart'),
+                          actions: [
+                            FlatButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: Text('OK'))
+                          ],
+                        );
+                      });
+                },
+                child: const Text("ADD")),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text("CANCEL"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void switchPackage() {
     switch (selectedIndex) {
       case 0:
-        packageData.subPackage = 'classic';
+        packageData.subPackage = 'BodyMassage';
         break;
       case 1:
-        packageData.subPackage = 'pre-BridalPackages';
-        break;
-      case 2:
-        packageData.subPackage = 'premiumPackages';
-        break;
-      case 3:
-        packageData.subPackage = 'FacialWaxingCombo';
+        packageData.subPackage = 'BodySpa';
         break;
     }
   }

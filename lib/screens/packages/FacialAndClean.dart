@@ -7,7 +7,10 @@ import 'package:the_glem_factory/model/cart_model.dart';
 
 import '../Cart.dart';
 
-List<String> subPackage = ['CleanUp Collection', 'Facial Collection'];
+List<String> subPackage = [
+  'CleanUp Collection',
+  'Facial Collection',
+];
 ServiceProvider packageData;
 double currentPageValue = 0;
 int selectedIndex = 0;
