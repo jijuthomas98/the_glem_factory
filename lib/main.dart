@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void openOnBoard() {
-    Navigator.push(
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => RootPage()));
   }
 }

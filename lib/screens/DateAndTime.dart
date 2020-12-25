@@ -11,7 +11,10 @@ import '../constant.dart';
 
 class DateAndTime extends StatefulWidget {
   final EventModel note;
-  const DateAndTime({Key key, this.note}) : super(key: key);
+  final int total;
+  final String finalString;
+  const DateAndTime({Key key, this.note, this.total, this.finalString})
+      : super(key: key);
 
   @override
   _DateAndTimeState createState() => _DateAndTimeState();
@@ -20,16 +23,10 @@ class DateAndTime extends StatefulWidget {
 class _DateAndTimeState extends State<DateAndTime> {
   DatePickerController _controller = DatePickerController();
   String _eventDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
-  DateTime _eventDateUnformatted;
+  DateTime eventDateUnformatted = DateTime.now();
   String _time;
   String selectedTimeButton = '';
-  // DateTime _selectedValue = DateTime.now();
   String selectedTime;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,7 @@ class _DateAndTimeState extends State<DateAndTime> {
         body: ListView(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height / 10,
+              //height: MediaQuery.of(context).size.height / 10,
               child: DatePicker(
                 DateTime.now(),
                 controller: _controller,
@@ -66,7 +63,9 @@ class _DateAndTimeState extends State<DateAndTime> {
                   setState(() {
                     // _selectedValue = date;
                     _eventDate = DateFormat('dd/MM/yyyy').format(date);
-                    _eventDateUnformatted = date;
+                    checkIfHoliday(date: _eventDate);
+                    eventDateUnformatted = date;
+                    print('------$date------');
                   });
                 },
               ),
@@ -270,26 +269,18 @@ class _DateAndTimeState extends State<DateAndTime> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
-            // final data = {
-            //   'current_userID':
-            //       Provider.of<Auth>(context, listen: false).currentUser(),
-            //   'selected_time': selectedTime,
-            //   "event_date": _eventDate,
-            // };
-            // if (widget.note != null) {
-            //   await eventDBS.updateData(widget.note.id, data);
-            // } else {
-            //   await eventDBS.create(data);
-            // }
-
-            if (_time != null && _eventDate != null) {
+            if (_time != null &&
+                _eventDate != null &&
+                _eventDate != 'holiday') {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Payment(
                             time: selectedTime,
                             date: _eventDate,
-                            eventDateUnformatted: _eventDateUnformatted,
+                            total: widget.total,
+                            title: widget.finalString,
+                            eventDateUnformatted: eventDateUnformatted,
                           )));
             } else {
               showDialog(
@@ -334,7 +325,6 @@ class _DateAndTimeState extends State<DateAndTime> {
                     FlatButton(
                         onPressed: () => Navigator.of(context).pop(false),
                         child: Text('OK'))
-                    //TODO make a function that disables the time button
                   ],
                 );
               });
@@ -343,6 +333,34 @@ class _DateAndTimeState extends State<DateAndTime> {
         }
       });
     }
+  }
+
+  void checkIfHoliday({String date}) {
+    QueryFirebaseMethod()
+        .getHolidayDate(_eventDate)
+        .then((QuerySnapshot doc) async {
+      if (doc.docs.length == 1) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Warning'),
+                content: Text(
+                    'The Date selected $_eventDate is a no working day ! Please select another day! '),
+                actions: [
+                  FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          _eventDate = 'holiday';
+                          Navigator.of(context).pop(false);
+                        });
+                      },
+                      child: Text('OK'))
+                ],
+              );
+            });
+      }
+    });
   }
 
   Container timeWidget({String time}) {

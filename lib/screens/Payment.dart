@@ -13,8 +13,16 @@ class Payment extends StatefulWidget {
   final EventModel note;
   final String time;
   final String date;
+  final String title;
+  final int total;
   final DateTime eventDateUnformatted;
-  Payment({this.time, this.date, this.note, this.eventDateUnformatted});
+  Payment(
+      {this.time,
+      this.date,
+      this.note,
+      this.eventDateUnformatted,
+      this.total,
+      this.title});
   @override
   _PaymentState createState() => _PaymentState();
 }
@@ -43,8 +51,8 @@ class _PaymentState extends State<Payment> {
       'selected_time': widget.time,
       "event_date": widget.date,
       'event_date_unformatted': widget.eventDateUnformatted,
-      'title': cartData.bundleItemsTitle(),
-      'totalAmount': cartData.totalAmount(),
+      'title': widget.title,
+      'totalAmount': widget.total,
       'bundleID': DateTime.now(),
       'PaymentStatus': 'PAID',
       'TransactionID': response.paymentId,
@@ -143,11 +151,15 @@ class _PaymentState extends State<Payment> {
                       width: MediaQuery.of(context).size.width / 3,
                       child: Column(
                         children: [
-                          Image.asset('asset/images/card.png'),
+                          Container(
+                            height: 100,
+                            width: 100,
+                            child: Image.asset('asset/images/card.png'),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 18),
                             child: Text(
-                              'Online Payment',
+                              'Online',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500),
                             ),
@@ -168,8 +180,8 @@ class _PaymentState extends State<Payment> {
                               .currentUser(),
                       'selected_time': widget.time,
                       "event_date": widget.date,
-                      'title': cartData.bundleItemsTitle(),
-                      'totalAmount': cartData.totalAmount(),
+                      'title': widget.title,
+                      'totalAmount': widget.total,
                       'event_date_unformatted': widget.eventDateUnformatted,
                       'bundleID': DateTime.now(),
                       'PaymentStatus': 'DUE',
@@ -179,8 +191,10 @@ class _PaymentState extends State<Payment> {
                     } else {
                       await eventDBS.create(data);
                     }
+
                     print(cartData.bundleItemsTitle());
-                    print(cartData.totalAmount());
+                    print('---------${widget.total}--------');
+                    print('---------${widget.title}--------');
                     print(widget.time);
                     print(widget.date);
                     print('bundle ID ${DateTime.now()}');
@@ -191,8 +205,12 @@ class _PaymentState extends State<Payment> {
                       width: MediaQuery.of(context).size.width / 3,
                       child: Column(
                         children: [
-                          Image.asset(
-                              'asset/images/icons/OpeningSlides/PayLater.png'),
+                          Container(
+                            height: 100,
+                            width: 100,
+                            child: Image.asset(
+                                'asset/images/icons/OpeningSlides/PayLater.png'),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 18),
                             child: Text(

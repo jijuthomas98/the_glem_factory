@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,6 +25,11 @@ class _BodyMassageState extends State<BodyMassage> {
   @override
   Widget build(BuildContext context) {
     packageData = Provider.of<ServiceProvider>(context);
+    if (selectedIndex == 0) {
+      packageData.subPackage = 'BodyMassage';
+    } else {
+      packageData.subPackage = 'BodySpa';
+    }
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -123,7 +129,7 @@ class _BodyMassageState extends State<BodyMassage> {
                           DocumentSnapshot package =
                               snapshot.data.documents[index];
                           return Container(
-                            height: MediaQuery.of(context).size.height / 5,
+                            height: MediaQuery.of(context).size.height / 4,
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.all(8),
                             child: Card(
@@ -148,9 +154,19 @@ class _BodyMassageState extends State<BodyMassage> {
                                                       .size
                                                       .width /
                                                   3,
-                                              child: Image(
-                                                image: NetworkImage(
-                                                    package['img']),
+                                              child: CachedNetworkImage(
+                                                imageUrl: package['img'],
+                                                progressIndicatorBuilder: (context,
+                                                        url,
+                                                        downloadProgress) =>
+                                                    Center(
+                                                        child: CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress)),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
                                             ),
                                             Container(
@@ -205,7 +221,7 @@ class _BodyMassageState extends State<BodyMassage> {
                                                 ],
                                               ),
                                             ),
-                                            Container(
+                                            Expanded(
                                               child: RaisedButton(
                                                 color: Color(0xffff7d85),
                                                 shape: RoundedRectangleBorder(

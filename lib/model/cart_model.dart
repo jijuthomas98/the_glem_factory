@@ -98,11 +98,12 @@ class CartItem with ChangeNotifier {
   }
 
   int totalAmount() {
-    int total = 0;
+    int totals = 0;
     _items.forEach((key, value) {
-      total = total + value.currentPrice * value.quantity;
+      totals = totals + value.currentPrice * value.quantity;
     });
-    return total;
+    print('---------total----------$totals}');
+    return totals;
   }
 
   int totalOrder() {
@@ -122,11 +123,11 @@ class CartItem with ChangeNotifier {
   }
 
   String bundleItemsTitle() {
-    String title = '';
     String finalString = '';
+    String titles = '';
     _items.forEach((key, value) {
-      title = '${value.title} X ${value.quantity} /';
-      finalString = '$title$finalString';
+      titles = '${value.title} X ${value.quantity} /';
+      finalString = '$titles$finalString';
     });
     return finalString;
   }

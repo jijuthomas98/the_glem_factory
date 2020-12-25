@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -132,8 +133,19 @@ class OffersCarousel extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         child: Container(
-                                          child: Image(
-                                            image: NetworkImage(offer['img']),
+                                          child: CachedNetworkImage(
+                                            imageUrl: offer['img'],
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress)),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
                                           ),
                                         ),
                                       ),

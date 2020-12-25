@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,6 +25,7 @@ class _ThreadingState extends State<Threading> {
   @override
   Widget build(BuildContext context) {
     packageData = Provider.of<ServiceProvider>(context);
+    packageData.subPackage = 'threading';
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -148,9 +150,19 @@ class _ThreadingState extends State<Threading> {
                                                       .size
                                                       .width /
                                                   3,
-                                              child: Image(
-                                                image: NetworkImage(
-                                                    package['img']),
+                                              child: CachedNetworkImage(
+                                                imageUrl: package['img'],
+                                                progressIndicatorBuilder: (context,
+                                                        url,
+                                                        downloadProgress) =>
+                                                    Center(
+                                                        child: CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress)),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
                                             ),
                                             Container(
@@ -205,7 +217,7 @@ class _ThreadingState extends State<Threading> {
                                                 ],
                                               ),
                                             ),
-                                            Container(
+                                            Expanded(
                                               child: RaisedButton(
                                                 color: Color(0xffff7d85),
                                                 shape: RoundedRectangleBorder(

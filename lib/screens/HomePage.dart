@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/appWidgets/SideDrawer.dart';
 import 'package:the_glem_factory/components/appWidgets/getIndicator.dart';
 import 'package:the_glem_factory/components/appWidgets/guideLinesBar.dart';
 import 'package:the_glem_factory/components/appWidgets/homeImageCarousel.dart';
 import 'package:the_glem_factory/components/appWidgets/offersCarousel.dart';
 import 'package:the_glem_factory/components/appWidgets/videoPlayer.dart';
-import 'package:the_glem_factory/components/service_provider.dart';
 import 'package:the_glem_factory/model/home_service_model.dart';
 import 'package:the_glem_factory/screens/Cart.dart';
 import 'package:video_player/video_player.dart';
@@ -41,11 +39,8 @@ class _MainHomePageState extends State<MainHomePage> {
   PageController _pageController = PageController(
     initialPage: 0,
   );
-  ServiceProvider serviceData;
   @override
   Widget build(BuildContext context) {
-    serviceData = Provider.of<ServiceProvider>(context, listen: false);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [

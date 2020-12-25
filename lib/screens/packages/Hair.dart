@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,7 +29,13 @@ class _HairState extends State<Hair> {
   @override
   Widget build(BuildContext context) {
     packageData = Provider.of<ServiceProvider>(context);
-
+    if (selectedIndex == 0) {
+      packageData.subPackage = 'HairColour';
+    } else if (selectedIndex == 1) {
+      packageData.subPackage = 'HairSpa';
+    } else {
+      packageData.subPackage = 'HairTreatment';
+    }
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -135,7 +142,7 @@ class _HairState extends State<Hair> {
                           DocumentSnapshot package =
                               snapshot.data.documents[index];
                           return Container(
-                            height: MediaQuery.of(context).size.height / 5,
+                            height: MediaQuery.of(context).size.height / 3.5,
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.all(8),
                             child: Card(
@@ -160,9 +167,19 @@ class _HairState extends State<Hair> {
                                                       .size
                                                       .width /
                                                   3,
-                                              child: Image(
-                                                image: NetworkImage(
-                                                    package['img']),
+                                              child: CachedNetworkImage(
+                                                imageUrl: package['img'],
+                                                progressIndicatorBuilder: (context,
+                                                        url,
+                                                        downloadProgress) =>
+                                                    Center(
+                                                        child: CircularProgressIndicator(
+                                                            value:
+                                                                downloadProgress
+                                                                    .progress)),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
                                             ),
                                             Container(
@@ -217,7 +234,7 @@ class _HairState extends State<Hair> {
                                                 ],
                                               ),
                                             ),
-                                            Container(
+                                            Expanded(
                                               child: RaisedButton(
                                                 color: Color(0xffff7d85),
                                                 shape: RoundedRectangleBorder(

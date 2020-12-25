@@ -88,6 +88,42 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:180493826973:android:559245134431e5b6400d74",
+        "android_client_info": {
+          "package_name": "com.smtheglemfactory.the_glem_factory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180493826973-mm2vnl95q0b4mmr6gesi6f6j5vou96mp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFW8DHcNo-HyYf8gyEXP_kdbe2LII34uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180493826973-mm2vnl95q0b4mmr6gesi6f6j5vou96mp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "180493826973-85060hpeuqcrr419r2190bglvl52fera.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.theGlemFactory"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:180493826973:android:ced9ad716b74b702400d74",
         "android_client_info": {
           "package_name": "com.subh.shikha_makeover_customer_app"

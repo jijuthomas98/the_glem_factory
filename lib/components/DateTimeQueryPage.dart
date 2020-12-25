@@ -36,4 +36,11 @@ class QueryFirebaseMethod {
         .orderBy('event_date_unformatted', descending: false)
         .get();
   }
+
+  getHolidayDate(String date) {
+    return FirebaseFirestore.instance
+        .collection('holidays')
+        .where('holidayDate', isEqualTo: date)
+        .get();
+  }
 }

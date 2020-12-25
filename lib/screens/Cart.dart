@@ -316,7 +316,11 @@ class _CartState extends State<Cart> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DateAndTime()));
+                                  builder: (context) => DateAndTime(
+                                        total: cartData.totalAmount(),
+                                        finalString:
+                                            cartData.bundleItemsTitle(),
+                                      )));
                         } else {
                           return showDialog(
                               context: context,
