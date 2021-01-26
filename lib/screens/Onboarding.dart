@@ -47,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         img: 'ChooseYourService',
                         title: 'Choose your Service',
                         txt:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et sem viverra, finibus ipsum non, dapibus nulla. ',
+                            'Great looks don\'t happen by chance they happen by appointments',
                       ),
                       OnBoardPage(
                         img: 'ScheduleAppointment',
@@ -59,19 +59,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         img: 'BestHomeSalon',
                         title: 'Best Home Salon',
                         txt:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et sem viverra, finibus ipsum non, dapibus nulla.  ',
+                            'Beauty comes from the inside by inside we mean inside our salon! ',
                       ),
                       OnBoardPage(
                         img: 'ProfessionalAtHome',
                         title: 'Professional at Home',
                         txt:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et sem viverra, finibus ipsum non, dapibus nulla. ',
+                            'Look gorgeous anytime anywhere because we can be at your doorstep in no time!',
                       ),
                       OnBoardPage(
                         img: 'PayLater',
                         title: 'Pay Later',
                         txt:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et sem viverra, finibus ipsum non, dapibus nulla. ',
+                            'Looking good doesn\'t need to be too expensive, Pay us later at your own convenience ! ',
                       ),
                     ],
                     onPageChanged: (value) => {setCurrentPage(value)},

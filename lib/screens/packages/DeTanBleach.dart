@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/service_provider.dart';
 import 'package:the_glem_factory/model/cart_model.dart';
-
 import '../Cart.dart';
 
 List<String> subPackage = ['Bleach Collection', 'De Tan Collection'];
@@ -13,16 +12,25 @@ ServiceProvider packageData;
 int selectedIndex = 0;
 double currentPageValue = 0;
 
-PageController _pageController = PageController(
-  initialPage: 0,
-);
+PageController _pageController ;
 
 class DeTanBleach extends StatefulWidget {
   @override
   _DeTanBleachState createState() => _DeTanBleachState();
+
 }
 
 class _DeTanBleachState extends State<DeTanBleach> {
+
+  @override
+  void initState() {
+    super.initState();
+    currentPageValue = 0;
+    _pageController = PageController(
+      initialPage: 0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     packageData = Provider.of<ServiceProvider>(context);
@@ -82,7 +90,7 @@ class _DeTanBleachState extends State<DeTanBleach> {
                                 duration: Duration(milliseconds: 300));
                             setState(() {
                               selectedIndex = index;
-                              switchPackage(selectedIndex);
+                              switchPackage();
                             });
                           },
                           child: Padding(
@@ -313,8 +321,8 @@ class _DeTanBleachState extends State<DeTanBleach> {
     );
   }
 
-  void switchPackage(int index) {
-    switch (index) {
+  void switchPackage() {
+    switch (selectedIndex) {
       case 0:
         packageData.subPackage = 'bleachCollection';
         break;

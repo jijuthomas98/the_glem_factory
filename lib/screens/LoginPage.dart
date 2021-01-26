@@ -330,7 +330,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Text(
-                'Dont have account?',
+                'Don\'t have an account?',
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'sfpro',

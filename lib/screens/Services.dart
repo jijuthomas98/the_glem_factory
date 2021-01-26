@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/service_provider.dart';
 import 'package:the_glem_factory/router/package_router.dart' as router;
-
 import 'Cart.dart';
 
 class Services extends StatefulWidget {
