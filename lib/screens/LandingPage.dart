@@ -39,30 +39,62 @@ class _LandingPageState extends State<LandingPage> {
           currentIndex: _currentTab,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.home,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.home,
+                  size: 22,
+                ),
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.toolbox,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Services()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.toolbox,
+                  size: 22,
+                ),
               ),
               label: 'service',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarCheck,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Appointment()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.calendarCheck,
+                  size: 22,
+                ),
               ),
               label: 'Appointment',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.userAlt,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>Profile()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.userAlt,
+                  size: 22,
+                ),
               ),
               label: 'Profile',
             ),
