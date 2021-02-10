@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoder/geocoder.dart' as geoC;
@@ -52,16 +51,30 @@ class _UserInputLocationState extends State<UserInputLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: (){
+        iconTheme: IconThemeData(color: Colors.grey),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: InkWell(
+          child: Icon(Icons.arrow_back_ios),
+          onTap:(){
             Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
           },
-          child: Icon(
-            FontAwesomeIcons.backward,
-            size: 22,
+
+      ),
+        title: Text(
+          ' Pin location ',
+          style: TextStyle(
+            color: Colors.black,
           ),
         ),
-        title: Text(' Pin location '),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.shopping_cart,
+            ),
+            onPressed: null,
+          ),
+        ],
       ),
       body: Stack(
         children: <Widget>[
@@ -80,12 +93,10 @@ class _UserInputLocationState extends State<UserInputLocation> {
                 print(tapped.latitude);
                 print(tapped.longitude);
                 print(firstAddress.addressLine);
-                FirebaseFirestore.instance.collection('Location').doc(docName).set({
+                FirebaseFirestore.instance.collection('userData').doc(docName).set({
                   'latitude': tapped.latitude,
                   'longitude' : tapped.longitude,
-                  'Uid' : docName,
-                  'TappedAddress' : firstAddress.addressLine,
-                });
+                }, SetOptions(merge: true));
               },
               compassEnabled: true,
               initialCameraPosition:

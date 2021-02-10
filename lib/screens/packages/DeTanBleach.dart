@@ -131,136 +131,141 @@ class _DeTanBleachState extends State<DeTanBleach> {
                   controller: _pageController,
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: snapshot.data.documents.length,
-                        itemBuilder: (BuildContext context, index) {
-                          DocumentSnapshot package =
-                              snapshot.data.documents[index];
-                          return Container(
-                            height: MediaQuery.of(context).size.height / 5,
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.all(8),
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  3,
-                                              child: CachedNetworkImage(
-                                                imageUrl: package['img'],
-                                                progressIndicatorBuilder: (context,
-                                                        url,
-                                                        downloadProgress) =>
-                                                    Center(
-                                                        child: CircularProgressIndicator(
-                                                            value:
-                                                                downloadProgress
-                                                                    .progress)),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
+                    if(!snapshot.hasData){
+                      return Scaffold(
+                        body: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (BuildContext context, index) {
+                        DocumentSnapshot package =
+                            snapshot.data.documents[index];
+                        return Container(
+                          height: MediaQuery.of(context).size.height / 5,
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.all(8),
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      width:
+                                          MediaQuery.of(context).size.width,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                            child: CachedNetworkImage(
+                                              imageUrl: package['img'],
+                                              progressIndicatorBuilder: (context,
+                                                      url,
+                                                      downloadProgress) =>
+                                                  Center(
+                                                      child: CircularProgressIndicator(
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress)),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
                                             ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  3,
-                                              padding: EdgeInsets.only(
-                                                  top: 10,
-                                                  left: 10,
-                                                  bottom: 10,
-                                                  right: 20),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    package['title'],
-                                                    style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      fontFamily: 'inter',
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                            padding: EdgeInsets.only(
+                                                top: 10,
+                                                left: 10,
+                                                bottom: 10,
+                                                right: 20),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  package['title'],
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w800,
+                                                    fontFamily: 'inter',
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '₹ ${package['currentPrice']}',
+                                                      style: TextStyle(
+                                                          fontSize: 15),
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        '₹ ${package['currentPrice']}',
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                      Text(
-                                                        '₹ ${package['previousPrice']}',
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontSize: 15,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Text(
-                                                      '${package['time']} min'),
-                                                ],
-                                              ),
+                                                    Text(
+                                                      '₹ ${package['previousPrice']}',
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 15,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                    '${package['time']} min'),
+                                              ],
                                             ),
-                                            Expanded(
-                                              child: RaisedButton(
-                                                color: Color(0xffff7d85),
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)),
-                                                onPressed: () {
-                                                  productSelected(
-                                                    title: package['title'],
-                                                    currentPrice:
-                                                        package['currentPrice'],
-                                                    previousPrice: package[
-                                                        'previousPrice'],
-                                                    time: package['time'],
-                                                  );
-                                                },
-                                                child: Text("ADD"),
-                                              ),
+                                          ),
+                                          Expanded(
+                                            child: RaisedButton(
+                                              color: Color(0xffff7d85),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              onPressed: () {
+                                                productSelected(
+                                                  title: package['title'],
+                                                  currentPrice:
+                                                      package['currentPrice'],
+                                                  previousPrice: package[
+                                                      'previousPrice'],
+                                                  time: package['time'],
+                                                );
+                                              },
+                                              child: Text("ADD"),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    // second half of card
-                                  ],
-                                ),
+                                  ),
+                                  // second half of card
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

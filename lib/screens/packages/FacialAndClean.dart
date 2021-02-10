@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/service_provider.dart';
 import 'package:the_glem_factory/model/cart_model.dart';
-
 import '../Cart.dart';
 
 List<String> subPackage = [
@@ -164,7 +163,7 @@ class _FacialAndCleanState extends State<FacialAndClean> {
       itemBuilder: (BuildContext context, index) {
         DocumentSnapshot package = snapshot.data.documents[index];
         return Container(
-          height: MediaQuery.of(context).size.height / 5,
+          height: MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.all(8),
           child: Card(
@@ -314,9 +313,9 @@ class _FacialAndCleanState extends State<FacialAndClean> {
     }
   }
 
-  @override
-  void dispose() {
-    packageData.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   packageData.dispose();
+  //   super.dispose();
+  // }
 }

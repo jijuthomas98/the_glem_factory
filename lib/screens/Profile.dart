@@ -32,7 +32,7 @@ class _ProfileState extends State<Profile> {
               Icons.arrow_back_ios,
               color: Colors.black54,
             ),
-            onTap: () => Navigator.push(context,
+            onTap: () => Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => LandingPage())),
           ),
           title: Text(

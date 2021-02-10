@@ -81,7 +81,7 @@ class _PaymentState extends State<Payment> {
       'key': 'rzp_test_1Znk3O5FLdTBzu',
       'amount':
           Provider.of<CartItem>(context, listen: false).totalAmount() * 100,
-      'name': 'The Glem Factory',
+      'name': 'The Glam Factory',
       'description': 'Bring the home salon',
       'prefill': {
         'contact':

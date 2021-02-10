@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:the_glem_factory/Maps/geoLocation.dart';
 import 'Appointment.dart';
 import 'HomePage.dart';
 import 'Profile.dart';
@@ -16,6 +16,7 @@ class _LandingPageState extends State<LandingPage> {
   List<Widget> _screens = [
     HomePage(),
     Services(),
+    UserInputLocation(),
     Appointment(),
     Profile(),
   ];
@@ -67,6 +68,21 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ),
               label: 'service',
+            ),
+            BottomNavigationBarItem(
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserInputLocation()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.map,
+                  size: 22,
+                ),
+              ),
+              label: 'Map',
             ),
             BottomNavigationBarItem(
               icon: GestureDetector(

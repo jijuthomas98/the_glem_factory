@@ -53,7 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         img: 'ScheduleAppointment',
                         title: 'Schedule Appointment',
                         txt:
-                            'Schedule your day and your address to continew our service of home salon and enjoy the perks ',
+                            'Schedule your day and your address to continue our service of home salon and enjoy the perks ',
                       ),
                       OnBoardPage(
                         img: 'BestHomeSalon',

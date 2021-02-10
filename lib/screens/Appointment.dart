@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:the_glem_factory/screens/HomePage.dart';
 
 import 'Cart.dart';
 import 'LandingPage.dart';
@@ -35,7 +36,7 @@ class _AppointmentState extends State<Appointment> {
                 Icons.arrow_back_ios,
                 color: Colors.black54,
               ),
-              onTap: () => Navigator.push(context,
+              onTap: () => Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => LandingPage())),
             ),
             title: Text(
