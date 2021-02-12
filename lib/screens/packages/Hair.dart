@@ -148,7 +148,7 @@ class _HairState extends State<Hair> {
                         DocumentSnapshot package =
                             snapshot.data.documents[index];
                         return Container(
-                          height: MediaQuery.of(context).size.height / 3.5,
+                          height: MediaQuery.of(context).size.height / 3,
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.all(8),
                           child: Card(
