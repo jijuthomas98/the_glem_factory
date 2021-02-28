@@ -46,7 +46,10 @@ class _ThreadingState extends State<Threading> {
             icon: Icon(
               Icons.shopping_cart,
             ),
-            onPressed: null,
+            onPressed: (){
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cart()));
+            },
           ),
         ],
       ),
@@ -112,7 +115,7 @@ class _ThreadingState extends State<Threading> {
                 ),
               ),
               Expanded(
-                flex: 10,
+                flex: 9,
                 child: PageView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
@@ -131,7 +134,7 @@ class _ThreadingState extends State<Threading> {
                         DocumentSnapshot package =
                             snapshot.data.documents[index];
                         return Container(
-                          height: MediaQuery.of(context).size.height / 5,
+                          height: MediaQuery.of(context).size.height / 4,
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.all(8),
                           child: Card(
@@ -321,9 +324,5 @@ class _ThreadingState extends State<Threading> {
     }
   }
 
-  @override
-  void dispose() {
-    packageData.dispose();
-    super.dispose();
-  }
+
 }

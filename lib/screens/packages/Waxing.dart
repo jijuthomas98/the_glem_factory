@@ -50,7 +50,10 @@ class _WaxingState extends State<Waxing> {
             icon: Icon(
               Icons.shopping_cart,
             ),
-            onPressed: null,
+            onPressed: (){
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cart()));
+            },
           ),
         ],
       ),
@@ -116,7 +119,7 @@ class _WaxingState extends State<Waxing> {
                 ),
               ),
               Expanded(
-                flex: 10,
+                flex: 9,
                 child: PageView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
@@ -135,7 +138,7 @@ class _WaxingState extends State<Waxing> {
                         DocumentSnapshot package =
                             snapshot.data.documents[index];
                         return Container(
-                          height: MediaQuery.of(context).size.height / 5,
+                          height: MediaQuery.of(context).size.height / 4,
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.all(8),
                           child: Card(
@@ -192,13 +195,15 @@ class _WaxingState extends State<Waxing> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  package['title'],
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w800,
-                                                    fontFamily: 'inter',
+                                                Flexible(
+                                                  child: Text(
+                                                    package['title'],
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontFamily: 'inter',
+                                                    ),
                                                   ),
                                                 ),
                                                 Row(
@@ -209,7 +214,7 @@ class _WaxingState extends State<Waxing> {
                                                     Text(
                                                       '₹ ${package['currentPrice']}',
                                                       style: TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 12),
                                                     ),
                                                     Text(
                                                       '₹ ${package['previousPrice']}',
@@ -328,9 +333,4 @@ class _WaxingState extends State<Waxing> {
     }
   }
 
-  @override
-  void dispose() {
-    packageData.dispose();
-    super.dispose();
-  }
 }

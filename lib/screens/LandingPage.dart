@@ -4,7 +4,6 @@ import 'package:the_glem_factory/Maps/geoLocation.dart';
 import 'Appointment.dart';
 import 'HomePage.dart';
 import 'Profile.dart';
-import 'Services.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class _LandingPageState extends State<LandingPage> {
   int _currentTab = 0;
   List<Widget> _screens = [
     HomePage(),
-    Services(),
     UserInputLocation(),
     Appointment(),
     Profile(),
@@ -25,6 +23,7 @@ class _LandingPageState extends State<LandingPage> {
       _currentTab = selectedIndex;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,21 +52,6 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ),
               label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Services()),
-                  );
-                },
-                child: Icon(
-                  FontAwesomeIcons.toolbox,
-                  size: 22,
-                ),
-              ),
-              label: 'service',
             ),
             BottomNavigationBarItem(
               icon: GestureDetector(

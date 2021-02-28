@@ -133,7 +133,7 @@ class _ClassicPackageState extends State<ClassicPackage> {
                 ),
               ),
               Expanded(
-                flex: 10,
+                flex: 9,
                 child: PageView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
@@ -211,12 +211,14 @@ class _ClassicPackageState extends State<ClassicPackage> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  package1['title'],
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800,
-                                    fontFamily: 'inter',
+                                Flexible(
+                                  child: Text(
+                                    package1['title'],
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                      fontFamily: 'inter',
+                                    ),
                                   ),
                                 ),
                                 Row(
@@ -225,7 +227,7 @@ class _ClassicPackageState extends State<ClassicPackage> {
                                   children: [
                                     Text(
                                       '₹ ${package1['currentPrice']}',
-                                      style: TextStyle(fontSize: 15),
+                                      style: TextStyle(fontSize: 12),
                                     ),
                                     Text(
                                       '₹ ${package1['previousPrice']}',
@@ -327,9 +329,5 @@ class _ClassicPackageState extends State<ClassicPackage> {
     }
   }
 
-  @override
-  void dispose() {
-    packageData.dispose();
-    super.dispose();
-  }
+
 }

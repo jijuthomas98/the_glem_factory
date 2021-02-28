@@ -43,5 +43,9 @@ Route<dynamic> serviceRoutes(RouteSettings settings) {
     case 'Waxing':
       return MaterialPageRoute(builder: (context) => Waxing());
       break;
+    default: {
+      return MaterialPageRoute(builder: (context) => Services());
+    }
+    break;
   }
 }

@@ -49,7 +49,10 @@ class _BodyMassageState extends State<BodyMassage> {
             icon: Icon(
               Icons.shopping_cart,
             ),
-            onPressed: null,
+            onPressed: (){
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cart()));
+            },
           ),
         ],
       ),
@@ -115,7 +118,7 @@ class _BodyMassageState extends State<BodyMassage> {
                 ),
               ),
               Expanded(
-                flex: 10,
+                flex: 9,
                 child: PageView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
@@ -191,13 +194,15 @@ class _BodyMassageState extends State<BodyMassage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  package['title'],
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w800,
-                                                    fontFamily: 'inter',
+                                                Flexible(
+                                                  child: Text(
+                                                    package['title'],
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontFamily: 'inter',
+                                                    ),
                                                   ),
                                                 ),
                                                 Row(
@@ -214,7 +219,7 @@ class _BodyMassageState extends State<BodyMassage> {
                                                       '₹ ${package['previousPrice']}',
                                                       style: TextStyle(
                                                           color: Colors.red,
-                                                          fontSize: 15,
+                                                          fontSize: 13,
                                                           decoration:
                                                               TextDecoration
                                                                   .lineThrough),
@@ -328,9 +333,5 @@ class _BodyMassageState extends State<BodyMassage> {
     }
   }
 
-  @override
-  void dispose() {
-    packageData.dispose();
-    super.dispose();
-  }
+
 }
