@@ -49,11 +49,9 @@ class Auth {
     return await FirebaseAuth.instance.signOut();
   }
 
-  void registerUserData({String fullName, email, password, phoneNo, address}) {
+  void registerUserData({String fullName, phoneNo, address}) {
     FirebaseFirestore.instance.collection('userData').doc(currentUser()).set({
       'fullName': fullName,
-      'email': email,
-      'password': password,
       'phoneNo': phoneNo,
       'address': address,
     });
@@ -70,7 +68,7 @@ class Auth {
     });
   }
 
-  Future<String> getUserData() async {
+  void getUserData() async {
     DocumentSnapshot users = await FirebaseFirestore.instance
         .collection('userData')
         .doc(currentUser())

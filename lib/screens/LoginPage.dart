@@ -59,9 +59,8 @@ class _LoginPageState extends State<LoginPage> {
           auth.registerUserData(
               fullName: _name,
               phoneNo: _phoneNo,
-              address: _address,
-              email: _email,
-              password: _password);
+              address: _address
+          );
           print(userId);
           print('User created');
         }

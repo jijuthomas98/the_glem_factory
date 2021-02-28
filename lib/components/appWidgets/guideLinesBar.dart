@@ -5,7 +5,7 @@ class GuidelinesBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10),
-      height: MediaQuery.of(context).size.height / 9,
+      height: MediaQuery.of(context).size.height / 8,
       color: Color(0xffF3D8E5),
       child: ListView(
         scrollDirection: Axis.horizontal,

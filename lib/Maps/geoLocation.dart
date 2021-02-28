@@ -5,7 +5,6 @@ import 'package:geocoder/geocoder.dart' as geoC;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/auth.dart';
-import 'package:the_glem_factory/screens/HomePage.dart';
 
 
 class UserInputLocation extends StatefulWidget {
@@ -57,7 +56,7 @@ class _UserInputLocationState extends State<UserInputLocation> {
         leading: InkWell(
           child: Icon(Icons.arrow_back_ios),
           onTap:(){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+            Navigator.pop(context);
           },
 
       ),
@@ -106,7 +105,7 @@ class _UserInputLocationState extends State<UserInputLocation> {
             ),
           ),
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomLeft,
             child: FloatingActionButton.extended(
               onPressed: () {
                 showDialog(

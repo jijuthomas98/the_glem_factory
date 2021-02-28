@@ -129,7 +129,7 @@ class _HairState extends State<Hair> {
                 ),
               ),
               Expanded(
-                flex: 10,
+                flex: 9,
                 child: PageView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
@@ -205,13 +205,15 @@ class _HairState extends State<Hair> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  package['title'],
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w800,
-                                                    fontFamily: 'inter',
+                                                Flexible(
+                                                  child: Text(
+                                                    package['title'],
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontFamily: 'inter',
+                                                    ),
                                                   ),
                                                 ),
                                                 Row(
@@ -222,7 +224,7 @@ class _HairState extends State<Hair> {
                                                     Text(
                                                       '₹ ${package['currentPrice']}',
                                                       style: TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 12),
                                                     ),
                                                     Text(
                                                       '₹ ${package['previousPrice']}',
@@ -344,9 +346,5 @@ class _HairState extends State<Hair> {
     }
   }
 
-  @override
-  void dispose() {
-    packageData.dispose();
-    super.dispose();
-  }
+
 }
