@@ -46,7 +46,9 @@ class _AboutUsState extends State<AboutUs> {
         ),
         body: Stack(
           children: [
-            Image(image: AssetImage('asset/images/Images/AboutUs/o.jpg')),
+            Image(
+                image:
+                    AssetImage('asset/images/Images/AboutUs/aboutUsImg.jpg')),
             Container(
               margin:
                   EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
@@ -98,7 +100,14 @@ class _AboutUsState extends State<AboutUs> {
                       height: 5,
                     ),
                     Text(
-                      'Street Number 6, Sadar Bazaar, Seth Mohalla, Sadar , Jabalpur, Madhya Pradesh 482001',
+                      'Bhumika State, D.no 2, Katanga Crossing Narmada Road, Jabalpur (MP)',
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Call us : 9303366553',
                       textAlign: TextAlign.center,
                     )
                   ],

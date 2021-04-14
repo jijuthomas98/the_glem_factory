@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_glem_factory/Maps/geoLocation.dart';
 import 'package:the_glem_factory/screens/AboutUs.dart';
-import 'package:the_glem_factory/screens/Appointment.dart';
 import 'package:the_glem_factory/screens/SafetyMeasures.dart';
 import 'package:the_glem_factory/screens/Services.dart';
-
+import 'package:the_glem_factory/screens/TermsAndConditions.dart';
+import 'package:the_glem_factory/screens/packages/ClassicPackage.dart';
 import '../auth.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -55,19 +56,6 @@ class SideDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(
-                      Icons.calendar_today,
-                    ),
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Appointment())),
-                    title: Text(
-                      'My Appointment',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                  ListTile(
                     onTap: () => Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Services())),
                     leading: Icon(
@@ -75,6 +63,19 @@ class SideDrawer extends StatelessWidget {
                     ),
                     title: Text(
                       'Services',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UserInputLocation())),
+                    leading: Icon(
+                      Icons.map_outlined,
+                    ),
+                    title: Text(
+                      'Pin Location',
                       style: TextStyle(
                         fontSize: 18.0,
                       ),
@@ -94,6 +95,7 @@ class SideDrawer extends StatelessWidget {
                     ),
                   ),
                   ListTile(
+                    onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => ClassicPackage())),
                     leading: Icon(
                       Icons.ac_unit,
                     ),
@@ -105,6 +107,10 @@ class SideDrawer extends StatelessWidget {
                     ),
                   ),
                   ListTile(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TermsAndConditions())),
                     leading: Icon(
                       Icons.account_balance,
                     ),

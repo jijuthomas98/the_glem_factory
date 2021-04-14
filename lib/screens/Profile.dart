@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/auth.dart';
-
+import 'package:the_glem_factory/root_page.dart';
 import 'Cart.dart';
 import 'LandingPage.dart';
 
@@ -22,7 +22,6 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.grey),
           backgroundColor: Colors.transparent,
@@ -32,7 +31,7 @@ class _ProfileState extends State<Profile> {
               Icons.arrow_back_ios,
               color: Colors.black54,
             ),
-            onTap: () => Navigator.push(context,
+            onTap: () => Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => LandingPage())),
           ),
           title: Text(
@@ -83,26 +82,22 @@ class _ProfileState extends State<Profile> {
             ),
             Container(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           'Name',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w500),
+                              fontSize: 17, fontWeight: FontWeight.w600),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 3 / 4,
-                          child: TextFormField(
-                            controller: nameController,
-                            decoration: InputDecoration(
-                              labelText: auth.userName,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
+
+                          child: Text(auth.userName),
                         ),
                       ],
                     ),
@@ -110,22 +105,16 @@ class _ProfileState extends State<Profile> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           'Phone No',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w500),
+                              fontSize: 17, fontWeight: FontWeight.w600),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 3 / 4,
-                          child: TextFormField(
-                            controller: phoneController,
-                            decoration: InputDecoration(
-                              labelText: auth.phoneNo,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
+
+                          child: Text(auth.phoneNo),
                         ),
                       ],
                     ),
@@ -133,22 +122,16 @@ class _ProfileState extends State<Profile> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           'Address',
                           style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w500),
+                              fontSize: 17, fontWeight: FontWeight.w600),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 3 / 4,
-                          child: TextFormField(
-                            controller: addressController,
-                            decoration: InputDecoration(
-                              labelText: auth.address,
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
+
+                          child: Text(auth.address),
                         ),
                       ],
                     ),
@@ -165,36 +148,8 @@ class _ProfileState extends State<Profile> {
                       alignment: FractionalOffset.bottomCenter,
                       child: InkWell(
                         onTap: () {
-                          auth.updateUserDate(
-                            name: nameController.text,
-                            address: addressController.text,
-                            phoneNo: phoneController.text,
-                          );
-                        },
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 15,
-                          width: MediaQuery.of(context).size.width,
-                          color: Colors.blueAccent,
-                          child: Center(
-                            child: Text(
-                              'EDIT',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: InkWell(
-                        onTap: () {
                           auth.signOut();
+                          Navigator.push(context, MaterialPageRoute(builder:(context) => RootPage()));
                         },
                         child: Container(
                           height: MediaQuery.of(context).size.height / 15,

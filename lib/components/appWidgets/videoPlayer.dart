@@ -20,10 +20,11 @@ class _VideoPlayerScrollState extends State<VideoPlayerScroll> {
   void initState() {
     super.initState();
     _chewieController = ChewieController(
-        videoPlayerController: widget.videoPlayerController,
+        videoPlayerController: widget.videoPlayerController..initialize(),
         aspectRatio: 16 / 9,
         autoInitialize: true,
-        looping: widget.looping,
+        looping: false,
+        autoPlay: false,
         errorBuilder: (context, errorMsg) {
           return Center(
             child: Text(
@@ -43,7 +44,7 @@ class _VideoPlayerScrollState extends State<VideoPlayerScroll> {
 
   @override
   void dispose() {
-    widget.videoPlayerController.dispose();
+   // widget.videoPlayerController.dispose();
     _chewieController.dispose();
     _chewieController.pause();
     super.dispose();

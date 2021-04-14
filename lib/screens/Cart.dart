@@ -38,7 +38,7 @@ class _CartState extends State<Cart> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2,
+              height: MediaQuery.of(context).size.height / 2.1,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: cartData.itemCount,

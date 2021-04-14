@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:the_glem_factory/Maps/geoLocation.dart';
 import 'Appointment.dart';
 import 'HomePage.dart';
 import 'Profile.dart';
-import 'Services.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -15,7 +14,7 @@ class _LandingPageState extends State<LandingPage> {
   int _currentTab = 0;
   List<Widget> _screens = [
     HomePage(),
-    Services(),
+    UserInputLocation(),
     Appointment(),
     Profile(),
   ];
@@ -24,6 +23,7 @@ class _LandingPageState extends State<LandingPage> {
       _currentTab = selectedIndex;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,30 +39,62 @@ class _LandingPageState extends State<LandingPage> {
           currentIndex: _currentTab,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.home,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.home,
+                  size: 22,
+                ),
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.toolbox,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserInputLocation()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.map,
+                  size: 22,
+                ),
               ),
-              label: 'service',
+              label: 'Map',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarCheck,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Appointment()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.calendarCheck,
+                  size: 22,
+                ),
               ),
               label: 'Appointment',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.userAlt,
-                size: 22,
+              icon: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>Profile()),
+                  );
+                },
+                child: Icon(
+                  FontAwesomeIcons.userAlt,
+                  size: 22,
+                ),
               ),
               label: 'Profile',
             ),

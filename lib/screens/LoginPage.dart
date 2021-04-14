@@ -59,9 +59,8 @@ class _LoginPageState extends State<LoginPage> {
           auth.registerUserData(
               fullName: _name,
               phoneNo: _phoneNo,
-              address: _address,
-              email: _email,
-              password: _password);
+              address: _address
+          );
           print(userId);
           print('User created');
         }
@@ -330,7 +329,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Text(
-                'Dont have account?',
+                'Don\'t have an account?',
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'sfpro',

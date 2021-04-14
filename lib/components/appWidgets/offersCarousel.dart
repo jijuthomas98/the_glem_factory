@@ -21,7 +21,7 @@ class OffersCarousel extends StatelessWidget {
             return CircularProgressIndicator();
           }
           return Container(
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height / 2.5,
             margin: EdgeInsets.only(top: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +59,7 @@ class OffersCarousel extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height / 4,
+                  height: MediaQuery.of(context).size.height / 3.5,
                   child: ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     scrollDirection: Axis.horizontal,
@@ -154,15 +154,17 @@ class OffersCarousel extends StatelessWidget {
                                           children: [
                                             Row(
                                               children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Text(
-                                                    offer['title'],
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(
+                                                        10.0),
+                                                    child: Text(
+                                                      offer['title'],
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -173,22 +175,22 @@ class OffersCarousel extends StatelessWidget {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    '${offer['time']} Min',
-                                                    style: TextStyle(
-                                                        fontSize: 15.0),
-                                                  ),
-                                                ),
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.all(8.0),
+                                                //   child: Text(
+                                                //     '${offer['time']} Min',
+                                                //     style: TextStyle(
+                                                //         fontSize: 15.0),
+                                                //   ),
+                                                // ),
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     '₹ ${offer['currentPrice']}',
                                                     style: TextStyle(
-                                                        fontSize: 13.0),
+                                                        fontSize: 12.0),
                                                   ),
                                                 ),
                                               ],

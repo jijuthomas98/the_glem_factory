@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'Cart.dart';
 import 'LandingPage.dart';
 import 'PreviousAppointment.dart';
@@ -35,7 +34,7 @@ class _AppointmentState extends State<Appointment> {
                 Icons.arrow_back_ios,
                 color: Colors.black54,
               ),
-              onTap: () => Navigator.push(context,
+              onTap: () => Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => LandingPage())),
             ),
             title: Text(
