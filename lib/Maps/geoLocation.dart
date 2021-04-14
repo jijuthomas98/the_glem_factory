@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_glem_factory/components/auth.dart';
 
-
 class UserInputLocation extends StatefulWidget {
   @override
   _UserInputLocationState createState() => _UserInputLocationState();
@@ -14,6 +13,10 @@ class UserInputLocation extends StatefulWidget {
 
 class _UserInputLocationState extends State<UserInputLocation> {
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  var address;
+  GoogleMapController _controller;
+  // Position position;
+  // LatLng initialPosition = LatLng(23.1511, 79.9486);
 
   void getMarkers(double lat, double long) {
     MarkerId markerId = MarkerId(lat.toString() + long.toString());
@@ -28,23 +31,19 @@ class _UserInputLocationState extends State<UserInputLocation> {
     });
   }
 
-  var address;
-  GoogleMapController _controller;
-  Position position;
-
-  void getCurrentPosition() async {
-    Position currentPosition =
-        await GeolocatorPlatform.instance.getCurrentPosition();
-    setState(() {
-      position = currentPosition;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCurrentPosition();
-  }
+  // void getCurrentPosition() async {
+  //   Position currentPosition = await GeolocatorPlatform.instance
+  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //   setState(() {
+  //     position = currentPosition;
+  //   });
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getCurrentPosition();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +54,10 @@ class _UserInputLocationState extends State<UserInputLocation> {
         elevation: 0,
         leading: InkWell(
           child: Icon(Icons.arrow_back_ios),
-          onTap:(){
+          onTap: () {
             Navigator.pop(context);
           },
-
-      ),
+        ),
         title: Text(
           ' Pin location ',
           style: TextStyle(
@@ -83,18 +81,22 @@ class _UserInputLocationState extends State<UserInputLocation> {
             child: GoogleMap(
               mapType: MapType.normal,
               onTap: (tapped) async {
-                var docName = Provider.of<Auth>(context, listen: false).currentUser();
+                var docName =
+                    Provider.of<Auth>(context, listen: false).currentUser();
                 var cord = geoC.Coordinates(tapped.longitude, tapped.latitude);
-                var address = await
-                    geoC.Geocoder.local.findAddressesFromCoordinates(cord);
+                var address = await geoC.Geocoder.local
+                    .findAddressesFromCoordinates(cord);
                 var firstAddress = address.first;
                 getMarkers(tapped.latitude, tapped.longitude);
                 print(tapped.latitude);
                 print(tapped.longitude);
                 print(firstAddress.addressLine);
-                FirebaseFirestore.instance.collection('userData').doc(docName).set({
+                FirebaseFirestore.instance
+                    .collection('userData')
+                    .doc(docName)
+                    .set({
                   'latitude': tapped.latitude,
-                  'longitude' : tapped.longitude,
+                  'longitude': tapped.longitude,
                 }, SetOptions(merge: true));
               },
               compassEnabled: true,
@@ -110,14 +112,15 @@ class _UserInputLocationState extends State<UserInputLocation> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (BuildContext context){
+                  builder: (BuildContext context) {
                     return AlertDialog(
-                      title :  Text('PIN LOCATION'),
+                      title: Text('PIN LOCATION'),
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
                             Text('Use this map to pin your home'),
-                            Text('This pinned location will be used to provide home services.'),
+                            Text(
+                                'This pinned location will be used to provide home services.'),
                           ],
                         ),
                       ),
@@ -139,7 +142,7 @@ class _UserInputLocationState extends State<UserInputLocation> {
             ),
           ),
           Align(
-            alignment : Alignment.bottomCenter,
+            alignment: Alignment.bottomCenter,
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 10,
               width: MediaQuery.of(context).size.width,
@@ -154,6 +157,11 @@ class _UserInputLocationState extends State<UserInputLocation> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.location_searching),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

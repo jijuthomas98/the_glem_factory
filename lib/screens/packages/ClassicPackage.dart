@@ -139,7 +139,7 @@ class _ClassicPackageState extends State<ClassicPackage> {
                   controller: _pageController,
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
-                    if(!snapshot.hasData){
+                    if (!snapshot.hasData) {
                       return Scaffold(
                         body: Center(
                           child: CircularProgressIndicator(),
@@ -171,100 +171,137 @@ class _ClassicPackageState extends State<ClassicPackage> {
       itemCount: snapshot.data.documents.length,
       itemBuilder: (BuildContext context, index) {
         DocumentSnapshot package1 = snapshot.data.documents[index];
-        return Container(
-          height: MediaQuery.of(context).size.height / 4,
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.all(8),
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            child: CachedNetworkImage(
-                              imageUrl: package1['img'],
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Center(
-                                  child: CircularProgressIndicator(
-                                      value: downloadProgress.progress)),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+        return InkWell(
+          onTap: () {
+            print('Ont tap');
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Details of ${package1['title']}'),
+                    content: Text(package1['details']),
+                    actions: [
+                      FlatButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text('OK'))
+                    ],
+                  );
+                });
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height / 4,
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.all(8),
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: CachedNetworkImage(
+                                imageUrl: package1['img'],
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress)),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            padding: EdgeInsets.only(
-                                top: 10, left: 10, bottom: 10, right: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    package1['title'],
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800,
-                                      fontFamily: 'inter',
+                            Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              padding: EdgeInsets.only(
+                                  top: 10, left: 10, bottom: 10, right: 20),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      package1['title'],
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800,
+                                        fontFamily: 'inter',
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      '₹ ${package1['currentPrice']}',
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                    Text(
-                                      '₹ ${package1['previousPrice']}',
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 15,
-                                          decoration:
-                                          TextDecoration.lineThrough),
-                                    )
-                                  ],
-                                ),
-                                Text('${package1['time']} min'),
-                              ],
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '₹ ${package1['currentPrice']}',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      Text(
+                                        '₹ ${package1['previousPrice']}',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 15,
+                                            decoration:
+                                                TextDecoration.lineThrough),
+                                      )
+                                    ],
+                                  ),
+                                  Text('${package1['time']} min'),
+                                ],
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: RaisedButton(
-                              color: Color(0xffff7d85),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              onPressed: () {
-                                productSelected(
-                                  title: package1['title'],
-                                  currentPrice: package1['currentPrice'],
-                                  previousPrice: package1['previousPrice'],
-                                  time: package1['time'],
-                                );
-                              },
-                              child: Text("ADD"),
+                            Expanded(
+                              child: RaisedButton(
+                                color: Color(0xffff7d85),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                onPressed: () {
+                                  productSelected(
+                                    title: package1['title'],
+                                    currentPrice: package1['currentPrice'],
+                                    previousPrice: package1['previousPrice'],
+                                    time: package1['time'],
+                                  );
+                                },
+                                child: Text("ADD"),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // second half of card
-                ],
+                    // second half of card
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              'Tap for Details',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -328,6 +365,4 @@ class _ClassicPackageState extends State<ClassicPackage> {
         break;
     }
   }
-
-
 }

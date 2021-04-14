@@ -78,7 +78,7 @@ class _PaymentState extends State<Payment> {
 
   void openCheckout() async {
     var options = {
-      'key': 'rzp_test_1Znk3O5FLdTBzu',
+      'key': 'rzp_live_VxgHgHpxVZ9RjU',
       'amount':
           Provider.of<CartItem>(context, listen: false).totalAmount() * 100,
       'name': 'The Glam Factory',
