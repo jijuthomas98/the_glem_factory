@@ -47,6 +47,8 @@ class _UserInputLocationState extends State<UserInputLocation> {
 
   @override
   Widget build(BuildContext context) {
+    var docName =
+    Provider.of<Auth>(context, listen: false).currentUser();
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -79,10 +81,9 @@ class _UserInputLocationState extends State<UserInputLocation> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: GoogleMap(
+              myLocationEnabled: true,
               mapType: MapType.normal,
               onTap: (tapped) async {
-                var docName =
-                    Provider.of<Auth>(context, listen: false).currentUser();
                 var cord = geoC.Coordinates(tapped.longitude, tapped.latitude);
                 var address = await geoC.Geocoder.local
                     .findAddressesFromCoordinates(cord);
@@ -159,7 +160,17 @@ class _UserInputLocationState extends State<UserInputLocation> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.location_searching),
-        onPressed: () {},
+        onPressed: () async {
+          Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+          getMarkers(position.latitude, position.longitude);
+          FirebaseFirestore.instance
+              .collection('userData')
+              .doc(docName)
+              .set({
+            'latitude': position.latitude,
+            'longitude': position.longitude,
+          }, SetOptions(merge: true));
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
